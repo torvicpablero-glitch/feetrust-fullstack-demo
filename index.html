@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <meta name="theme-color" content="#f8fafc" />
+  <link rel="canonical" href="https://feetrust.com/" />
+  <meta name="description"
+    content="FeeTrust - Verified Merit System. Recognize service workers, earn gems, and unlock exclusive rewards." />
+  <meta property="og:title" content="FeeTrust - Verified Merit & Digital Vault" />
+  <meta property="og:description"
+    content="Recognize exceptional service, earn customer gems, and showcase verified workforce merit." />
+  <meta property="og:image" content="https://feetrust.com/logo.png" />
+  <meta property="og:url" content="https://feetrust.com" />
+  <meta property="og:type" content="website" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="FeeTrust - Verified Merit Network" />
+  <meta name="twitter:description"
+    content="Recognize service team members, earn gems, and display store counter QR posters." />
+  <meta name="twitter:image" content="https://feetrust.com/logo.png" />
+  <title>FeeTrust - Verified Merit System</title>
+  <link rel="icon" type="image/png" sizes="192x192" href="/icon-192.png" />
+  <link rel="icon" type="image/png" sizes="64x64" href="/favicon.png" />
+  <link rel="shortcut icon" href="/favicon.png" />
+
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&family=Outfit:wght@400;500;600;700;800&display=swap"
+    rel="stylesheet">
+
+  <!-- Mobile PWA Meta Tags -->
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="FeeTrust" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+
+  <link rel="manifest" href="/manifest.json" />
+</head>
+
+<body class="bg-slate-50 text-slate-900 font-['Outfit',sans-serif] antialiased">
+  <div id="root"></div>
+  <script type="module" src="/src/main.tsx"></script>
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').then(reg => {
+          reg.update();
+        }).catch(() => { });
+      });
+    }
+
+    window.clearAppCacheAndReload = function () {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function (regs) {
+          for (var i = 0; i < regs.length; i++) regs[i].unregister();
+          if ('caches' in window) {
+            caches.keys().then(function (keys) {
+              Promise.all(keys.map(function (k) { return caches.delete(k); })).then(function () {
+                window.location.reload(true);
+              });
+            });
+          } else {
+            window.location.reload(true);
+          }
+        });
+      } else {
+        window.location.reload(true);
+      }
+    };
+
+    // Auto-recovery timer if React fails to mount within 3.5 seconds
+    setTimeout(function () {
+      var root = document.getElementById('root');
+      if (root && !root.hasChildNodes()) {
+        console.warn('React root unmounted after timeout. Purging stale browser cache...');
+        window.clearAppCacheAndReload();
+      }
+    }, 3500);
+
+    // Global Emergency Recovery if React Root fails to mount
+    window.addEventListener('error', function (e) {
+      console.error('Global application error:', e);
+      var root = document.getElementById('root');
+      if (root && !root.hasChildNodes()) {
+        root.innerHTML = '<div style="min-height:100vh;background:#0f172a;color:#f8fafc;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:24px;text-align:center;font-family:sans-serif;"><div style="width:64px;height:64px;background:rgba(239,68,68,0.2);color:#ef4444;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:28px;font-weight:bold;margin-bottom:16px;border:1px solid rgba(239,68,68,0.4);">!</div><h1 style="font-size:24px;font-weight:bold;margin-bottom:8px;">FeeTrust Loading Issue</h1><p style="color:#94a3b8;max-width:400px;margin-bottom:24px;font-size:14px;line-height:1.5;">An unexpected script initialization error occurred. Please click below to refresh and clear cache.</p><button onclick="window.clearAppCacheAndReload()" style="background:linear-gradient(135deg,#3b82f6,#6366f1);color:#fff;border:none;padding:12px 24px;border-radius:9999px;font-weight:bold;cursor:pointer;box-shadow:0 4px 14px rgba(59,130,246,0.4);">Clear Cache & Reload</button></div>';
+      }
+    }, true);
+  </script>
+</body>
+
+</html>
+

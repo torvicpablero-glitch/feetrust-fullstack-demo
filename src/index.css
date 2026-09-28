@@ -1,0 +1,411 @@
+@import "tailwindcss";
+
+@custom-variant dark (&:where(.dark, .dark *));
+
+:root {
+  --bg: #fdfdfd;
+  --frost-base: rgba(255, 255, 255, 0.75);
+  --frost-border: rgba(226, 232, 240, 0.8);
+  --text-primary: #0f172a;
+  --text-secondary: #64748b;
+  --crystal-glow: rgba(255, 255, 255, 0.95);
+  --transition-crystal: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@layer utilities {
+  .animate-in {
+    animation: animate-in 0.5s ease-out both;
+  }
+  .fade-in {
+    --tw-enter-opacity: 0;
+  }
+  .zoom-in {
+    --tw-enter-scale: 0.95;
+  }
+  .slide-in-from-bottom-4 {
+    --tw-enter-translate-y: 1rem;
+  }
+}
+
+@keyframes animate-in {
+  from {
+    opacity: var(--tw-enter-opacity, 1);
+    transform: translate3d(var(--tw-enter-translate-x, 0), var(--tw-enter-translate-y, 0), 0) scale3d(var(--tw-enter-scale, 1), var(--tw-enter-scale, 1), var(--tw-enter-scale, 1)) rotate(var(--tw-enter-rotate, 0));
+  }
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+/* Premium Glassmorphism Design Tokens & Utilities */
+.glass-panel {
+  background: rgba(255, 255, 255, 0.72);
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+  border: 1px solid rgba(226, 232, 240, 0.8);
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.05), inset 0 1px 1px 0 rgba(255, 255, 255, 0.8);
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover {
+  transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.glass-card-hover:hover {
+  transform: translateY(-3px) scale(1.006);
+  border-color: rgba(99, 102, 241, 0.4);
+  box-shadow: 0 20px 45px -12px rgba(99, 102, 241, 0.18), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.glass-pill {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.85);
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+}
+
+.crystal-card {
+  background: rgba(255, 255, 255, 0.65);
+  backdrop-filter: blur(16px) saturate(120%);
+  -webkit-backdrop-filter: blur(16px) saturate(120%);
+  border: 1px solid rgba(226, 232, 240, 0.75);
+  box-shadow: 0 10px 30px -5px rgba(0, 0, 0, 0.04), inset 0 1px 0 0 rgba(255, 255, 255, 0.6);
+  transition: var(--transition-crystal);
+}
+
+.crystal-card:hover {
+  border-color: rgba(148, 163, 184, 0.6);
+  box-shadow: 0 16px 36px -10px rgba(0, 0, 0, 0.08), inset 0 1px 0 0 rgba(255, 255, 255, 0.8);
+}
+
+.crystal-btn {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(226, 232, 240, 0.9);
+  font-family: 'JetBrains Mono', monospace, sans-serif;
+  font-weight: 600;
+  transition: var(--transition-crystal);
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.03);
+}
+
+.crystal-btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+}
+
+.crystal-facet {
+  position: relative;
+  overflow: hidden;
+}
+
+/* Subtle facet highlight - no mirror cover over letters */
+.crystal-facet::before {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0; bottom: 0;
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.12) 0%, transparent 45%, rgba(255, 255, 255, 0.04) 100%);
+  pointer-events: none;
+}
+
+/* Faded subtle accent shine so letters are ALWAYS crystal clear */
+.refraction {
+  position: absolute;
+  width: 250px;
+  height: 250px;
+  background: linear-gradient(45deg, rgba(255,255,255,0) 0%, rgba(255,255,255,0.12) 50%, rgba(255,255,255,0) 100%);
+  top: -120px;
+  right: -120px;
+  transform: rotate(45deg);
+  pointer-events: none;
+  transition: transform 1s ease;
+  opacity: 0.3;
+}
+
+.crystal-card:hover .refraction {
+  transform: rotate(45deg) translateY(380px);
+  opacity: 0.5;
+}
+
+/* Black / Dark Mode Styling Overrides */
+.dark {
+  --bg: #090a0f;
+  --text-primary: #ffffff;
+  --text-secondary: #cbd5e1;
+  color-scheme: dark;
+  background-color: #090a0f !important;
+  color: #ffffff !important;
+}
+
+.dark .glass-panel,
+.dark .crystal-card,
+.dark .bg-white,
+.dark .bg-slate-50 {
+  background: rgba(13, 15, 23, 0.72) !important;
+  backdrop-filter: blur(20px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(20px) saturate(180%) !important;
+  border-color: rgba(255, 255, 255, 0.14) !important;
+  box-shadow: 0 12px 40px -10px rgba(0, 0, 0, 0.6), inset 0 1px 1px 0 rgba(255, 255, 255, 0.12) !important;
+  color: #ffffff !important;
+}
+
+.dark .glass-card-hover:hover {
+  border-color: rgba(129, 140, 248, 0.5) !important;
+  box-shadow: 0 20px 45px -12px rgba(99, 102, 241, 0.35), inset 0 1px 1px 0 rgba(255, 255, 255, 0.2) !important;
+}
+
+.dark .glass-pill {
+  background: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+.dark aside,
+.dark header {
+  background: rgba(11, 12, 19, 0.75) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+  border-color: rgba(255, 255, 255, 0.12) !important;
+}
+
+.dark h1, .dark h2, .dark h3, .dark h4, .dark .text-slate-900 {
+  color: #ffffff !important;
+  text-shadow: 0 1px 2px rgba(0, 0, 0, 0.5);
+}
+
+.dark .text-slate-700, .dark .text-slate-600, .dark .text-slate-500 {
+  color: #cbd5e1 !important;
+}
+
+.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+.dark input {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.2) !important;
+  color: #ffffff !important;
+}
+
+.dark input::placeholder {
+  color: #94a3b8 !important;
+}
+
+.dark .bg-slate-100, .dark .bg-slate-50\/70, .dark .bg-slate-50\/80 {
+  background-color: rgba(255, 255, 255, 0.08) !important;
+  border-color: rgba(255, 255, 255, 0.15) !important;
+}
+
+/* Giving Merit Full-Screen Profile Theme Switching Rules */
+.merit-overlay-backdrop {
+  background-color: rgba(241, 245, 249, 0.9) !important;
+  backdrop-filter: blur(16px) !important;
+  -webkit-backdrop-filter: blur(16px) !important;
+}
+.dark .merit-overlay-backdrop {
+  background-color: rgba(0, 0, 0, 0.85) !important;
+}
+
+.merit-profile-modal {
+  background-color: #ffffff !important;
+  color: #0f172a !important;
+  border-color: #e2e8f0 !important;
+}
+.dark .merit-profile-modal {
+  background-color: #090a0f !important;
+  color: #ffffff !important;
+  border-color: #1e293b !important;
+}
+
+.merit-rating-btn-unselected {
+  background-color: #f8fafc !important;
+  border-color: #e2e8f0 !important;
+  color: #0f172a !important;
+}
+.merit-rating-btn-unselected:hover {
+  background-color: #f1f5f9 !important;
+  border-color: #6366f1 !important;
+}
+.dark .merit-rating-btn-unselected {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+.dark .merit-rating-btn-unselected:hover {
+  background-color: rgba(30, 41, 59, 1) !important;
+  border-color: #818cf8 !important;
+}
+
+.merit-input-field {
+  background-color: #f8fafc !important;
+  border-color: #cbd5e1 !important;
+  color: #0f172a !important;
+}
+.merit-input-field:focus {
+  background-color: #ffffff !important;
+  border-color: #4f46e5 !important;
+}
+.dark .merit-input-field {
+  background-color: rgba(30, 41, 59, 0.8) !important;
+  border-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+/* Fixed Customer Service Bar Light / Dark Theme Modes */
+.customer-service-bar {
+  background-color: rgba(255, 255, 255, 0.92) !important;
+  border-top-color: rgba(226, 232, 240, 0.8) !important;
+  color: #0f172a !important;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.04) !important;
+}
+
+.dark .customer-service-bar {
+  background-color: rgba(9, 10, 15, 0.92) !important;
+  border-top-color: rgba(30, 41, 59, 0.8) !important;
+  color: #ffffff !important;
+  box-shadow: 0 -8px 30px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Shimmer & Merit Badge FX */
+@keyframes shimmer-sweep {
+  0% { transform: translateX(-100%) rotate(25deg); }
+  100% { transform: translateX(200%) rotate(25deg); }
+}
+
+.animate-shimmer {
+  position: relative;
+  overflow: hidden;
+}
+
+.animate-shimmer::after {
+  content: '';
+  position: absolute;
+  top: -50%;
+  left: -50%;
+  width: 200%;
+  height: 200%;
+  background: linear-gradient(
+    60deg,
+    transparent 20%,
+    rgba(255, 255, 255, 0.25) 50%,
+    transparent 80%
+  );
+  transform: translateX(-100%) rotate(25deg);
+  animation: shimmer-sweep 3.5s infinite cubic-bezier(0.4, 0, 0.2, 1);
+  pointer-events: none;
+}
+
+.trust-badge-gold {
+  background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+  box-shadow: 0 4px 14px rgba(245, 158, 11, 0.35);
+}
+
+.trust-badge-diamond {
+  background: linear-gradient(135deg, #06b6d4 0%, #3b82f6 50%, #8b5cf6 100%);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.4);
+}
+
+.trust-badge-mythic {
+  background: linear-gradient(135deg, #ec4899 0%, #a855f7 50%, #6366f1 100%);
+  box-shadow: 0 4px 20px rgba(236, 72, 153, 0.45);
+}
+
+/* Minimalist Map Attribution Styling */
+.leaflet-control-attribution {
+  background: rgba(255, 255, 255, 0.6) !important;
+  backdrop-filter: blur(8px) !important;
+  font-size: 9px !important;
+  border-radius: 6px !important;
+  margin: 4px !important;
+  padding: 1px 5px !important;
+  opacity: 0.4;
+  transition: opacity 0.2s ease;
+}
+.leaflet-control-attribution:hover {
+  opacity: 0.9;
+}
+.dark .leaflet-control-attribution {
+  background: rgba(15, 23, 42, 0.6) !important;
+  color: #94a3b8 !important;
+}
+.dark .leaflet-control-attribution a {
+  color: #818cf8 !important;
+}
+
+/* 3D Crystal Strata Glassmorphism System */
+.strata-viewport {
+  perspective: 2000px;
+  transform-style: preserve-3d;
+}
+
+.strata-scene {
+  position: relative;
+  transform-style: preserve-3d;
+  transition: transform 0.12s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.strata-card-base {
+  background: linear-gradient(135deg, rgba(255, 255, 255, 0.85) 0%, rgba(255, 255, 255, 0.65) 100%);
+  backdrop-filter: blur(24px) saturate(180%);
+  -webkit-backdrop-filter: blur(24px) saturate(180%);
+  border: 1px solid rgba(0, 229, 255, 0.3);
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.15), inset 0 1px 1px 0 rgba(255, 255, 255, 0.9);
+}
+
+.dark .strata-card-base {
+  background: linear-gradient(135deg, rgba(13, 15, 25, 0.88) 0%, rgba(5, 8, 16, 0.92) 100%) !important;
+  backdrop-filter: blur(24px) saturate(180%) !important;
+  -webkit-backdrop-filter: blur(24px) saturate(180%) !important;
+  border: 1px solid rgba(0, 229, 255, 0.25) !important;
+  box-shadow: 0 40px 100px rgba(0, 0, 0, 0.7), inset 0 1px 1px 0 rgba(0, 229, 255, 0.2) !important;
+}
+
+.strata-shard {
+  position: absolute;
+  background: radial-gradient(circle, rgba(0, 229, 255, 0.25), transparent 70%);
+  filter: blur(40px);
+  border-radius: 50%;
+  pointer-events: none;
+  z-index: -1;
+  animation: floatShard 18s infinite alternate ease-in-out;
+}
+
+.strata-crystal {
+  position: absolute;
+  width: 100px;
+  height: 200px;
+  background: rgba(255, 255, 255, 0.03);
+  clip-path: polygon(50% 0%, 100% 20%, 80% 100%, 20% 100%, 0% 20%);
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  pointer-events: none;
+  z-index: -2;
+}
+
+.dark .strata-crystal {
+  border-color: rgba(0, 229, 255, 0.2);
+  background: rgba(0, 229, 255, 0.03);
+}
+
+@keyframes floatShard {
+  0% { transform: translate(0, 0) scale(1); }
+  100% { transform: translate(70px, -50px) scale(1.25); }
+}
+
+.strata-label {
+  font-family: 'JetBrains Mono', 'Space Mono', monospace;
+  font-size: 10px;
+  text-transform: uppercase;
+  letter-spacing: 0.35em;
+  color: #00e5ff;
+}
+
+
+
+
+
+

@@ -1,0 +1,16 @@
+node_modules/
+build/
+dist/
+coverage/
+.DS_Store
+*.log
+.env*
+!.env.example
+
+.vercel
+
+# Local/ephemeral data stores — must NEVER be committed.
+# The database (DATABASE_URL) is the source of truth; committing these deployed
+# stale seed rows and test artifacts to production.
+data.json
+users.json

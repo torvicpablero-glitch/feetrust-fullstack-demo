@@ -1,0 +1,9 @@
+User-agent: *
+Allow: /
+Allow: /terms
+Allow: /privacy
+Disallow: /_preview-landing
+Disallow: /api/
+Disallow: /admin
+
+Sitemap: https://feetrust.com/sitemap.xml

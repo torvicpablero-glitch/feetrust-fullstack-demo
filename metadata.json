@@ -1,0 +1,6 @@
+{
+  "name": "Feetrust",
+  "description": "A merit rating system optimized for desktop browsers, featuring offline support, E2E encryption, Gmail and Contacts integration, and Maps Grounding.",
+  "requestFramePermissions": ["geolocation"],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}
